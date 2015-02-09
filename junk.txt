@@ -1,0 +1,7 @@
+			while (okayokay.next())
+			{
+				System.out.println(okayokay.getString(1));
+				
+				
+			}
+				

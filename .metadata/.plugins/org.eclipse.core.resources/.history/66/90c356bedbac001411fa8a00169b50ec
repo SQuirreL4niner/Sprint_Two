@@ -1,0 +1,80 @@
+package JDBC_2;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Test {
+	
+
+	private Connection con;
+	private Statement stmt;
+	//String maybe = "Users";
+	//String query = "SELECT * FROM " + maybe;		
+
+
+	public void insertRecords() throws SQLException{
+		
+		try {
+		
+			//load and register JDBC Driver for Oracle DBMS
+			Class.forName("oracle.jdbc.OracleDriver");
+			
+			//Create connection object
+			con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","admin","none");
+			
+			//Create Statement object
+			stmt= con.createStatement();
+
+			//enable transaction by setting auto-commit to false
+			con.setAutoCommit(false);
+			
+			//Insert query  " + maybe + "
+
+			stmt.executeUpdate("INSERT into Users VALUES('2', 'b')");
+
+			//stmt.executeUpdate(query);
+	
+			con.commit();
+			
+		} catch (ClassNotFoundException e) {
+			con.rollback();
+			e.printStackTrace();
+			
+		} catch (SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+			
+		}
+		
+		finally{
+			
+			con.close();
+		}
+		
+		
+	}
+	
+
+	
+public static void main(String[] args) throws SQLException {
+	
+	Test trans= new Test();
+	
+	trans.insertRecords();
+	
+
+}	
+	
+	
+	
+	
+	
+	
+}
+
+
+
+
